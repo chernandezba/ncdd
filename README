@@ -20,3 +20,4 @@ To clean
 make -f Makefile.all clean
 
 
+Note: this was my Final Career Project, you may find some documentation in folder final_career_project
