@@ -1,0 +1,38 @@
+#
+#
+# Controlador de dispositius en xarxa
+#
+# Treball de fi de carrera
+# Alumne: Cesar Hernandez Baño
+# Carrera: Enginyeria Tecnica Informatica de Sistemes
+#
+# Fitxer cdx_importa
+# Configuració dels dispositius, usat per cdx_client
+#
+#
+# Hi ha la correspondencia entre cada valor minor del dispositiu CDX
+# amb un ordinador (Host) i el dispositiu de que es tracta
+# Format:
+# minor ordinador dispositiu
+#
+# Una linia que comença amb # és ignorada completament
+# Els camps poden estar separats per espais o tabuladors
+# S'admeten línies en blanc
+#
+
+
+0 localhost /dev/dsp
+1 localhost /dev/dsp1
+2 localhost /dev/lp0
+3 localhost /dev/fb0
+4 localhost /dev/zero
+
+10 Apolo /dev/dsp
+11 Apolo /dev/lp
+12 Apolo /dev/fb0
+
+20 Neptu /dev/dsp
+21 Neptu /dev/lp0
+22 Neptu /dev/fb0
+23 Neptu /dev/radio
+

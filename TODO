@@ -1,0 +1,27 @@
+
+-Cliente & Kernel:
+ hacer que no se avise mediante señales, sino que los procesos se queden
+ esperando
+ ->Hecho con el cliente padre. Mirar como se sabe desde el modulo, cuando
+ se despierta el padre, si ha recibido una señal o realmente se ha
+ despertado (con task_struct->sigpending ???)
+
+ ->Del cliente padre, se despierta mediante wake_up, guardando la
+ estructura de proceso del mismo--NO!!! se despierta mediante señal "ALTRES"
+ ->Pero del cliente hijo, como solo se tiene el pid, se despierta igualmente
+ mediante senyales, pues se queda durmiendo dentro del modulo
+ en la ioctl CDX_IOCTL_LLEGIR_ALTRES
+ ->Se podria hacer que el padre se despertase igualmente mediante senyales,
+ pero es una solucion mas elegante hacerlo con wake_up
+
+-El cliente hijo, se ha de hacer que espere alguna señal antes de empezar,
+para que el padre pueda registrarlo al modulo. De momento, no espera
+nada, y cuando llama al primer ioctl, si da error, se volvera a intentar
+el ioctl indefinidamente
+
+-Cliente & Servidor:
+ cambiar puerto de conexion, a un puerto reservado ( < 1024 ?? )
+
+-Cuando un proceso abre un dispositivo ocupado, p.ej. dsp, y luego cancelamos
+el proceso, el cliente recibirá notificacion, pero el servidor se quedara
+esperando hasta que esté disponible el dispositivo

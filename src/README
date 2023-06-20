@@ -1,0 +1,22 @@
+This software gives you the facility to use char drivers from any computer connected to a network. For example, you may open a /dev/dsp (audio device) from a computer A, using the audio device located (physically) at computer B.
+
+It has three parts:
+-ncdd kernel module, which runs in the client computer
+-client daemon, also runs in the client computer
+-server daemon, which runs in the server computer (where the devices that you use are located)
+It implements open/close/read/write/seek functions on char devices, and ioctl calls with some limitations.
+
+This version compiles in kernels 2.6
+
+To compile && install
+make -f Makefile.all 
+su root
+make -f Makefile.all install
+
+To make sample devices
+make -f Makefile.all dispositius
+
+To clean
+make -f Makefile.all clean
+
+

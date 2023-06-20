@@ -1,0 +1,5 @@
+/var/log/ncdd_client.log  /var/log/ncdd_server.log {
+	compress
+	daily
+	copytruncate
+}

@@ -1,0 +1,114 @@
+CC=gcc
+
+# -fno-common
+CFLAGS=-Wall -ggdb -fno-common
+CFLAGS2=-Wall -ggdb 
+INITDIR=/etc/init.d
+MANPATH=/usr/share/man/es/man8
+
+PROGRAMS=ncdd_client ncdd_client.o ncdd_client_child.o \
+					ncdd_server ncdd_server.o ncdd_server_child.o ncdd_util.o \
+					prova1 prova2 prova3 prova4 prova5 prova6 prova7 prova8 prova9 prova10
+
+PWD := $(shell pwd)
+
+all: $(PROGRAMS)
+	echo "Compilacio completada."
+
+
+#disabledncdd.o: ncdd.h ncdd_24.h ncdd_26.h ncdd.c
+#disabled	$(CC) $(MODCFLAGS) -fno-common -c ncdd.c
+
+ncdd_client.o: ncdd.h ncdd_client.c
+	$(CC) $(CFLAGS2) -c ncdd_client.c
+
+ncdd_client_child.o: ncdd.h ncdd_net.h ncdd_util.h ncdd_client_child.c
+	$(CC) $(CFLAGS2) -c ncdd_client_child.c
+
+ncdd_client: ncdd_client.o ncdd_client_child.o ncdd_util.o
+	$(CC) $(CFLAGS2) ncdd_client.o ncdd_client_child.o ncdd_util.o -o ncdd_client
+
+ncdd_server.o: ncdd.h ncdd_net.h ncdd_server.c
+	$(CC) $(CFLAGS2) -c ncdd_server.c
+
+ncdd_server_child.o: ncdd.h ncdd_net.h ncdd_util.h ncdd_server_child.c
+	$(CC) $(CFLAGS2) -c ncdd_server_child.c
+
+ncdd_server: ncdd_server.o ncdd_server_child.o ncdd_util.o
+	$(CC) $(CFLAGS2) ncdd_server.o ncdd_server_child.o ncdd_util.o -o ncdd_server
+
+ncdd_util.o: ncdd_util.c
+	$(CC) $(CFLAGS2) -c ncdd_util.c
+
+prova1: prova1.c
+	$(CC) $(CFLAGS2) prova1.c -o prova1
+
+prova2: prova2.c
+	$(CC) $(CFLAGS2) prova2.c -o prova2
+
+prova3: prova3.c
+	$(CC) $(CFLAGS2) prova3.c -o prova3
+
+prova4: prova4.c
+	$(CC) $(CFLAGS2) prova4.c -o prova4
+
+prova5: prova5.c
+	$(CC) $(CFLAGS2) prova5.c -o prova5
+
+prova6: ncdd.h prova6.c
+	$(CC) $(CFLAGS2) prova6.c -o prova6
+
+prova7: prova7.c
+	$(CC) $(CFLAGS2) prova7.c -o prova7
+
+prova8: prova8.c
+	$(CC) $(CFLAGS2) prova8.c -o prova8
+
+prova9: prova9.c
+	$(CC) $(CFLAGS2) prova9.c -o prova9
+
+prova10: prova10.c
+	$(CC) $(CFLAGS2) prova10.c -o prova10
+
+
+clean:
+	rm -f $(PROGRAMS)
+	rm -f *.o
+	rm -f core
+
+	rm -f .ncdd*cmd
+	rm -fR .tmp_versions/
+	rm -f Module.symvers
+	rm -f ncdd.mod.c
+	rm -f ncdd.ko
+
+install: ncdd.ko ncdd_client ncdd_server
+	cp ncdd_server /sbin
+	chmod 700 /sbin/ncdd_server
+	cp ncdd_client /sbin
+	chmod 700 /sbin/ncdd_client
+	cp ncdd.ko $(INSTALLDIR)
+	cp scripts/ncdd_client $(INITDIR)
+	cp scripts/ncdd_server $(INITDIR)
+	chkconfig --add ncdd_client
+	chkconfig --add ncdd_server
+	cp ncdd_client.8 $(MANPATH)
+	cp ncdd_server.8 $(MANPATH)
+
+dispositius:
+	
+	cd /dev
+	mkdir ncdd
+	cd ncdd
+
+	mknod ncdd c 254 250
+
+	mkdir localhost
+	cd localhost
+
+	mknod dsp c 254 0
+	mknod lp0 c 254 1
+	mknod fb0 c 254 2
+	mknod zero c 254 3
+
+	echo "Dispositius creats."

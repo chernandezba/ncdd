@@ -1,0 +1,30 @@
+#
+#
+# Controlador de dispositius en xarxa
+#
+# Treball de fi de carrera
+# Alumne: Cesar Hernandez Baño
+# Carrera: Enginyeria Tecnica Informatica de Sistemes
+#
+# Fitxer cdx_exporta
+# Configuració dels dispositius exportats, usat per cdx_servidor
+#
+#
+# Hi ha la correspondencia entre cada ordinador client i els
+# dispositius que pot usar, juntament amb els permisos de que
+# disposa (lectura i/o escriptura)
+# Format:
+# ordinador dispositiu permisos
+#
+# Una linia que comença amb # és ignorada completament
+# Els camps poden estar separats per espais o tabuladors
+# S'admeten línies en blanc
+#
+
+
+localhost /dev/dsp rwi
+localhost /dev/dsp1 rwi
+localhost /dev/fb0 rw
+
+David /dev/dsp w
+David /dev/fb0 r

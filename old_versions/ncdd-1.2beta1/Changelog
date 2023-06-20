@@ -1,0 +1,19 @@
+1.2beta1
+-Modified code to compile in 2.6 kernel
+
+1.1beta2
+
+1.1beta1
+cdx_servidor,cdx_client both run as daemon. Some parts translated to English
+
+Canvis de la versió original (la del TFC) a aquesta:
+-El client fill, quan s'avisa d'una peticio altres, no es porta
+ el comptatge del numero de peticions que s'han fet, sino que es van
+ solicitant peticions fins que es retorna error
+-Afegit fitxer de configuració pel servidor
+-Arreglat error quan obriem un dispositiu que dona error
+ i el servidor es quedava usant un 100% de la CPU. Això era degut
+ a un error a cdx_util (al fer read) i dins de cdx_servidor_fill
+ (que havia de retornar si open era -1)
+-Fet que quan obrim un dispositiu que esta ocupat no es queda esperant.
+ Es fa que al obrir es posa els flags O_NONBLOCK
