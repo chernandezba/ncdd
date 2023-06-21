@@ -1,80 +1,80 @@
 Controlador de dispositius en xarxa
 
 Treball de fi de carrera
-Alumne: César Hernández Bañó
-Carrera: Enginyeria Tècnica Informàtica de Sistemes
+Alumne: CÃ©sar HernÃ¡ndez BaÃ±Ã³
+Carrera: Enginyeria TÃ¨cnica InformÃ tica de Sistemes
 
 -Requeriments de funcionament
 
-Per tal de poder provar el funcionament del projecte, hem de disposar del següent:
--Sistema Operatiu: Linux 2.4, amb privilegis d'execució d'administrador (root)
+Per tal de poder provar el funcionament del projecte, hem de disposar del segÃ¼ent:
+-Sistema Operatiu: Linux 2.4, amb privilegis d'execuciÃ³ d'administrador (root)
 -Ordinador: Processador Intel o compatible
 -Programari:
 	Utilitat "make" de manteniment de programari
-	Compilador "gcc" o compatible + enllaçador "ld"
--Maquinari: no és necessari disposar de targeta de xarxa, ni de mòdem, només tenir,
-com a mínim, configurat l'interfície "loopback" de xarxa, i, per executar les proves,
+	Compilador "gcc" o compatible + enllaÃ§ador "ld"
+-Maquinari: no Ã©s necessari disposar de targeta de xarxa, ni de mÃ²dem, nomÃ©s tenir,
+com a mÃ­nim, configurat l'interfÃ­cie "loopback" de xarxa, i, per executar les proves,
 una targeta de so i el dispositiu framebuffer de pantalla.
 
--Compilació
+-CompilaciÃ³
 
-El primer que hem de fer és compilar tot el projecte; per tal d'això, executem l'ordre:
+El primer que hem de fer Ã©s compilar tot el projecte; per tal d'aixÃ², executem l'ordre:
 "make"
-Si tot va bé, obtindrem el missatge "Compilació completada".
-Tindrem compilats, el mòdul del sistema, el client, el servidor i els
+Si tot va bÃ©, obtindrem el missatge "CompilaciÃ³ completada".
+Tindrem compilats, el mÃ²dul del sistema, el client, el servidor i els
 fitxer de proves.
 
--Configuració
+-ConfiguraciÃ³
 
-Després, hem de crear els dispositius de xarxa. Per tal d'executar els fitxers
-de prova, hem de tenir una sèrie de dispositius que usen l'ordinador local.
+DesprÃ©s, hem de crear els dispositius de xarxa. Per tal d'executar els fitxers
+de prova, hem de tenir una sÃ¨rie de dispositius que usen l'ordinador local.
 Per tal de crear-los, executem el script:
 ./crear_dispositius.sh
 
 Amb lo qual, haurem creat dins el directori /dev/cdx,
-el dispositiu de control (usat en la connexió entre el mòdul i el client),
+el dispositiu de control (usat en la connexiÃ³ entre el mÃ²dul i el client),
 i 4 dispositius (dins la carpeta localhost): dsp (targeta de so), lp0
-(impressora), fb0 (framebuffer de pantalla), psaux (ratolí).
+(impressora), fb0 (framebuffer de pantalla), psaux (ratolÃ­).
 
 Llavors, aquests dispositius, per tal de ser utilitzats, han d'estar
-configurats al fitxer cdx_importa, cosa que ja hi són per defecte, a part
+configurats al fitxer cdx_importa, cosa que ja hi sÃ³n per defecte, a part
 d'altres dispositius remots d'exemple.
 
 Si volguessim crear altres dispositius remots, hauriem de fer dues coses:
 
 1) crear una entrada de dispositiu dins del directori /dev/cdx
 
-Això es fa amb la ordre:
+AixÃ² es fa amb la ordre:
 mknod nom c 254 minor
-on nom és el que volguem donar-li al dispositiu, i minor el número
+on nom Ã©s el que volguem donar-li al dispositiu, i minor el nÃºmero
 identificatiu del dispositiu (de 0 a 249). Recordem que, per tal de facilitar
-la localització del dispositiu, es pot crear dins un directori amb
+la localitzaciÃ³ del dispositiu, es pot crear dins un directori amb
 el nom de l'ordinador remot
 
 2) configurar el dispositiu dins del fitxer "cdx_importa"
 
-Hem d'entrar una línia, amb el número minor del dispositiu, el nom
-de l'ordinador remot, i el nom que té el dispositiu dins aquest ordinador
+Hem d'entrar una lÃ­nia, amb el nÃºmero minor del dispositiu, el nom
+de l'ordinador remot, i el nom que tÃ© el dispositiu dins aquest ordinador
 en xarxa.
 Per exemple:
 
 10 Apolo /dev/dsp
 
-que indica que el dispositiu amb número minor 10, fa referència al dispositiu
-anomenat /dev/dsp dins l'ordinador que té per nom Apolo.
+que indica que el dispositiu amb nÃºmero minor 10, fa referÃ¨ncia al dispositiu
+anomenat /dev/dsp dins l'ordinador que tÃ© per nom Apolo.
 
 
--Execució
+-ExecuciÃ³
 
-En l'ordinador que volguem usar un dispositiu, hem de carregar el mòdul
-del sistema i el client. Això ho fem així:
-"insmod cdx.o"          (per carregar el mòdul)
+En l'ordinador que volguem usar un dispositiu, hem de carregar el mÃ²dul
+del sistema i el client. AixÃ² ho fem aixÃ­:
+"insmod cdx.o"          (per carregar el mÃ²dul)
 "./cdx_client"          (per executar el client)
 
 Llavors, en l'ordinador (o ordinadors) on es trobin els dispositius
 a usar, hem d'executar el servidor. Com suposem que no tenim cap
-connexió per xarxa, el servidor s'executarà en el mateix ordinador
-que el client. Per tal d'això, executem:
+connexiÃ³ per xarxa, el servidor s'executarÃ  en el mateix ordinador
+que el client. Per tal d'aixÃ², executem:
 "./cdx_servidor"
 
 Llavors, podem executar qualsevol dels fitxers de prova, o executar
@@ -82,17 +82,17 @@ ordres del sistema operatiu de lectura o escriptura de dades, per exemple:
 
 echo hola > /dev/cdx/localhost/lp0
 
-Que generarà un text per la impressora.
+Que generarÃ  un text per la impressora.
 
 
--Missatges de depuració
+-Missatges de depuraciÃ³
 
-Totes les parts del programari generen missatges escrits, amb informació
+Totes les parts del programari generen missatges escrits, amb informaciÃ³
 de tot el que es va executant. En el client i el servidor, aquests missatges
-es veuen a la pantalla, i en mòdul, van a parar al registre d'events del
+es veuen a la pantalla, i en mÃ²dul, van a parar al registre d'events del
 sistema operatiu (normalment, el fitxer /var/log/messages). Si volguessim
 desactivar aquests missatges, hem d'obrir els fitxers de codi font
-i buscar les entrades (al principi de fitxer) amb una línia:
+i buscar les entrades (al principi de fitxer) amb una lÃ­nia:
 
 #define DEBUG
 i substituir-la per
@@ -100,15 +100,15 @@ i substituir-la per
 
 I llavors tornar a executar la ordre "make"
 
-Pot ser important desactivar-lo en el mòdul (fitxer cdx.c), donat que,
+Pot ser important desactivar-lo en el mÃ²dul (fitxer cdx.c), donat que,
 com els missatges van redirigits a un fitxer, aquest podria creixer
-en tamany ràpidament.
+en tamany rÃ pidament.
 
 
 -IMPORTANT: EN EL MOMENT QUE ES TERMINA EL CLIENT (FENT CTRL+C), SI VOLEM TORNAR
-A EXECUTAR-LO, ABANS HEM DE TREURE EL MÒDUL DE LA MEMÒRIA
+A EXECUTAR-LO, ABANS HEM DE TREURE EL MÃ’DUL DE LA MEMÃ’RIA
 (EXECUTANT "rmmod cdx") I
 TORNAR-LO A CARREGAR (AMB "insmod cdx.o")
 
 
-Per a més informació, consultar el document de la memòria del TFC.
+Per a mÃ©s informaciÃ³, consultar el document de la memÃ²ria del TFC.
